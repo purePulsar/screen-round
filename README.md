@@ -61,6 +61,18 @@ Wayland 会话下 X11 形状不生效，必须 X11。
 Ubuntu 20.04 / Debian 11 那种老 dpkg 也装得上。要改版本号改 `packaging/build-deb.sh` 顶部，
 顺手在 `packaging/changelog` 里补一条。
 
+### 发版（GitHub Actions）
+
+推一个 `v*` 标签就全自动了——打包、把包拆开真跑一遍、建 Release、挂上 `.deb` 和 `SHA256SUMS`：
+
+```bash
+git tag v0.1.1 && git push origin v0.1.1
+```
+
+版本号取自标签（`v0.1.1` → `0.1.1`），不用手改脚本；`packaging/changelog` 忘了同步也不要紧，
+构建时发现对不上会在最前面自动补一条。Actions 页面手动触发 `Release` 也能打包，
+但只留成 artifact、不发 Release。本地想跑同一套检查：`packaging/smoke-test.sh dist/*.deb`。
+
 ## 托盘菜单
 
 | 菜单项 | 行为 |

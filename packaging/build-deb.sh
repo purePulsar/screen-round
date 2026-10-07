@@ -7,7 +7,9 @@
 set -euo pipefail
 
 PKG="screen-round"
-VERSION="0.1.0"
+# 版本号优先级：命令行第一个参数 > 环境变量 SCREEN_ROUND_VERSION > 下面的默认值。
+# 推 tag 时 GitHub Actions 会用环境变量把版本号传进来（v1.2.3 → 1.2.3）。
+VERSION="${1:-${SCREEN_ROUND_VERSION:-0.1.0}}"
 ARCH="all"
 MAINTAINER="purePulsar <purePulsar@users.noreply.github.com>"
 HOMEPAGE="https://github.com/purePulsar/screen-round"
@@ -40,8 +42,22 @@ install -m 0644 "$HERE/icons/screen-round.svg"            "$STAGE$ICONDIR/screen
 
 install -m 0644 "$HERE/copyright" "$STAGE$DOCDIR/copyright"
 install -m 0644 "$ROOT/README.md" "$STAGE$DOCDIR/README.md"
-# -n：不要把时间戳塞进 gzip 头，同一个源重复打出来的包才是同一份
-gzip -9n -c "$HERE/changelog" > "$STAGE$DOCDIR/changelog.gz"
+
+# 包里 changelog 的版本必须跟包本身的版本对得上。tag 触发的构建版本号来自 tag，
+# packaging/changelog 未必同步改过，对不上就在最前面补一条（相当于自动 dch）。
+CHANGELOG_SRC="$HERE/changelog"
+TOP_VERSION="$(sed -n '1s/^[^(]*(\([^)]*\)).*/\1/p' "$CHANGELOG_SRC")"
+if [ "$TOP_VERSION" = "$VERSION" ]; then
+    # -n：不要把时间戳塞进 gzip 头，同一个源重复打出来的包才是同一份
+    gzip -9n -c "$CHANGELOG_SRC" > "$STAGE$DOCDIR/changelog.gz"
+else
+    {
+        printf '%s (%s) unstable; urgency=medium\n\n' "$PKG" "$VERSION"
+        printf '  * 由标签触发的自动构建。\n\n'
+        printf ' -- %s  %s\n\n' "$MAINTAINER" "$(date -R)"
+        cat "$CHANGELOG_SRC"
+    } | gzip -9n -c > "$STAGE$DOCDIR/changelog.gz"
+fi
 chmod 0644 "$STAGE$DOCDIR/changelog.gz"
 
 install -m 0755 "$HERE/postinst" "$STAGE/DEBIAN/postinst"
