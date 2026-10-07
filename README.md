@@ -23,6 +23,44 @@ python3 screen_tray.py     # 托盘 —— 遮罩唯一的控制面
 
 依赖：`python3-tk`、`python3-gi`、`gir1.2-ayatanaappindicator3-0.1`（本机已装）。
 
+## 打包成 .deb（拷到别的机器上装）
+
+```bash
+packaging/build-deb.sh          # 产物：dist/screen-round_0.1.0_all.deb
+```
+
+装到另一台 Ubuntu / Zorin / Debian 系机器（要 X11 会话）：
+
+```bash
+sudo apt install ./screen-round_0.1.0_all.deb    # 用 apt 才会自动补依赖
+# 用 dpkg -i 也行，装完记得 sudo apt -f install
+```
+
+装完在应用菜单里搜「屏幕圆角遮罩」，命令行则是 `screen-round`（拉托盘）；
+`screen-round-mask` 只起遮罩本体，正常不用手动跑。
+
+包里的东西：
+
+| 路径 | 内容 |
+|------|------|
+| `/usr/lib/screen-round/*.py` | 三个脚本。**必须同目录**——自启项的 Exec 和「重启遮罩」都是按 `__file__` 现算同目录路径的 |
+| `/usr/bin/screen-round` | 托盘启动器（唯一控制面） |
+| `/usr/bin/screen-round-mask` | 只起遮罩本体 |
+| `/usr/share/applications/screen-round.desktop` | 应用菜单入口 |
+| `/usr/share/icons/hicolor/scalable/apps/screen-round.svg` | 图标 |
+
+包**不预置自启项**。`~/.config/autostart/` 下那两个 desktop 文件由托盘的「开机自启」
+现生成——包里再放一份，登录就会启动两次。装完请用托盘里的开关自启。
+
+依赖由 apt 自动装：`python3-tk`、`python3-gi`、`gir1.2-gtk-3.0`、
+`gir1.2-ayatanaappindicator3-0.1`、`libx11-6`、`libxext6`。
+GNOME 系桌面还要开「AppIndicator and KStatusNotifierItem Support」扩展，否则托盘图标不显示。
+Wayland 会话下 X11 形状不生效，必须 X11。
+
+打包脚本本身只用 `dpkg-deb`，不需要 debhelper；包压成 xz（不用 zstd），
+Ubuntu 20.04 / Debian 11 那种老 dpkg 也装得上。要改版本号改 `packaging/build-deb.sh` 顶部，
+顺手在 `packaging/changelog` 里补一条。
+
 ## 托盘菜单
 
 | 菜单项 | 行为 |

@@ -1,0 +1,9 @@
+screen-round (0.1.0) unstable; urgency=medium
+
+  * 首次打包：遮罩本体、托盘、桌面入口、图标。
+  * 三个 .py 装进 /usr/lib/screen-round/，自启项与重启遮罩用同一目录，
+    由 __file__ 现算，不需要预置自启副本（避免登录时启动两次）。
+  * 依赖：python3-tk、python3-gi、gir1.2-gtk-3.0、
+    gir1.2-ayatanaappindicator3-0.1、libx11-6、libxext6。
+
+ -- purePulsar <purePulsar@users.noreply.github.com>  Tue, 07 Oct 2026 14:00:00 +0800

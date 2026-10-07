@@ -1,0 +1,13 @@
+#!/bin/sh
+# 新装了 .desktop 和图标，顺手刷新一下桌面数据库，省得菜单里要等一会儿才出现。
+set -e
+
+if [ -x /usr/bin/update-desktop-database ]; then
+    update-desktop-database -q /usr/share/applications || true
+fi
+
+if [ -x /usr/bin/gtk-update-icon-cache ]; then
+    gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor || true
+fi
+
+exit 0

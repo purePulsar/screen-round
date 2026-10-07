@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 图标含义：外面那圈带圆角的边框 = 显示器外壳，里面纯黑的圆角方块 = 被遮出来的圆角屏幕 -->
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <rect x="4" y="4" width="120" height="120" rx="32" ry="32" fill="#2f3a45"/>
+  <rect x="5.5" y="5.5" width="117" height="117" rx="30.5" ry="30.5"
+        fill="none" stroke="#7c8b99" stroke-width="3" opacity="0.75"/>
+  <rect x="24" y="24" width="80" height="80" rx="22" ry="22" fill="#000000"/>
+</svg>

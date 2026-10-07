@@ -1,0 +1,4 @@
+#!/bin/sh
+# 屏幕圆角遮罩 —— 只起遮罩本体。
+# 托盘会自己拉起 / 重启遮罩，正常情况下不用手动跑这个。
+exec /usr/bin/python3 /usr/lib/screen-round/screen_mask.py "$@"

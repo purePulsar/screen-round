@@ -5,3 +5,7 @@ __pycache__/
 venv/
 *.log
 .DS_Store
+
+# 打包中间产物与成品（dist/*.deb 是本地构建出来的，不进版本库）
+build/
+dist/

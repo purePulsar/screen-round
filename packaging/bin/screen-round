@@ -1,0 +1,4 @@
+#!/bin/sh
+# 屏幕圆角遮罩 —— 托盘（遮罩唯一的控制面）。
+# 遮罩窗口完全鼠标穿透、自己没有菜单，所有设置都在这个托盘里。
+exec /usr/bin/python3 /usr/lib/screen-round/screen_tray.py "$@"

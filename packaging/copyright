@@ -1,0 +1,11 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: screen-round
+Source: https://github.com/purePulsar/screen-round
+
+Files: *
+Copyright: 2026 purePulsar
+License: LICENSE-missing
+ 上游仓库目前没有声明任何开源许可证，作者保留所有权利。
+ 这个包是作者为自己的机器自建的安装包，不打算上传到任何发行版仓库。
+ 打算公开分发的话，请先在仓库里加一份 LICENSE（例如 MIT），
+ 再把本文件的 License 字段改成对应的许可证短名并附上全文。

@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=屏幕圆角遮罩
+Name[en]=Screen Round
+GenericName=屏幕圆角
+GenericName[en]=Screen corners
+Comment=把屏幕四角遮成圆角，让整块显示看起来像圆角屏幕
+Comment[en]=Round the corners of the screen
+Exec=/usr/bin/python3 /usr/lib/screen-round/screen_tray.py
+TryExec=/usr/bin/python3
+Icon=screen-round
+Terminal=false
+Categories=Utility;
+Keywords=round;corner;screen;mask;indicator;圆角;屏幕;遮罩;
+StartupNotify=false
